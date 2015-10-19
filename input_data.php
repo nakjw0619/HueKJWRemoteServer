@@ -11,13 +11,13 @@ $response = array();
 if (isset($_POST['HueBulbInfo'])) {
 
     // include db connect class
-    require_once __DIR__ . '/db_connect.php';
+    require_once 'db_connect.php';
 
     // connecting to db	
     $db = new DB_CONNECT();
     mysql_query("set names 'utf8'");
   	
-	$result = mysql_query("INSERT INTO StatisticsEnergyUsage(is_on_off) VALUES($_POST['HueBulbInfo']");
+	$result = mysql_query("INSERT INTO StatisticsEnergyUsage(is_on_off) VALUES(".$_POST['HueBulbInfo']);
 	// INSERT INTO 테이블명(컬럼명) VALUE(컬럼값); // POST말고 다른 방식으로 값을 받아도 된다.
 	
     // check if row inserted or not
