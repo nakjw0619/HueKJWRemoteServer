@@ -3,12 +3,12 @@
 // array for JSON response
 $response = array();
 
-// HueBulbInfo 라는 POST값이 있으면 입력을 진행
+// HueBulbInfo 라는 GET값이 있으면 입력을 진행
 // HueBulbInfo는 1과 0 둘중에 하나의 값만 들어온다.
 // 만약 HueBulbInfo가 1이면 on
 // HueBulbInfo가 0이면 off가 입력되어진다.
-// 자동으로 $_POST['HueBulbInfo']를 통째로 Mysql에 넣으면 된다.
-if (isset($_POST['HueBulbInfo'])) {
+// 자동으로 $_GET['HueBulbInfo']를 통째로 Mysql에 넣으면 된다.
+if (isset($_GET['HueBulbInfo'])) {
 
     // include db connect class
     require_once 'db_connect.php';
@@ -17,8 +17,13 @@ if (isset($_POST['HueBulbInfo'])) {
     $db = new DB_CONNECT();
     mysql_query("set names 'utf8'");
   	
-	$result = mysql_query("INSERT INTO StatisticsEnergyUsage(is_on_off) VALUES(".$_POST['HueBulbInfo'].")");
-	// INSERT INTO 테이블명(컬럼명) VALUE(컬럼값); // POST말고 다른 방식으로 값을 받아도 된다.
+	$result = mysql_query("INSERT INTO StatisticsEnergyUsage(is_on_off) VALUES(".$_GET['HueBulbInfo'].")");
+	// INSERT INTO 테이블명(컬럼명) VALUE(컬럼값); // GET말고 다른 방식으로 값을 받아도 된다.
+	
+	$response["retval"] = $result;
+	$response["getval"] = $_GET["HueBulbInfo"];
+	//$response["getval"] = dump($_GET);
+	
 	
     // check if row inserted or not
     if ($result) {
